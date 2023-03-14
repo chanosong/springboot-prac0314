@@ -84,4 +84,21 @@ public class HomeController {
 
         return id + "번 사람이 존재하지 않습니다.";
     }
+
+    @GetMapping("/home/modifyPerson")
+    @ResponseBody
+    public String modifyPeople(int id, String name, int age) {
+
+        for (int i = 0; i < peopleList.size(); i++) {
+
+            if (peopleList.get(i).get("id").equals(id)) {
+                peopleList.get(i).replace("name", name);
+                peopleList.get(i).replace("age", age);
+
+                return id + "번 사람이 수정되었습니다.";
+            }
+        }
+
+        return id + "번 사람이 존재하지 않습니다.";
+    }
 }
