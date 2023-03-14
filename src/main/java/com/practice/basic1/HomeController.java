@@ -16,6 +16,7 @@ import java.util.Map;
 public class HomeController {
 
     int cnt = 0;
+    int lastIdx = 0;
     List<Map<String, Object>> peopleList = new ArrayList<>();
 
     @GetMapping("/home/main")
@@ -60,12 +61,27 @@ public class HomeController {
     public String addPeople(String name, int age) {
         Map<String, Object> map = new LinkedHashMap<>();
 
-        map.put("id", peopleList.size() + 1);
+        map.put("id", ++lastIdx);
         map.put("name", name);
         map.put("age", age);
 
         peopleList.add(map);
 
-        return peopleList.size() + "번 사람이 추가되었습니다.";
+        return lastIdx + "번 사람이 추가되었습니다.";
+    }
+
+    @GetMapping("/home/removePerson")
+    @ResponseBody
+    public String removePeople(int id) {
+
+        for (int i = 0; i < peopleList.size(); i++) {
+            if (peopleList.get(i).get("id").equals(id)) {
+                peopleList.remove(i);
+
+                return id + "번 사람이 삭제되었습니다.";
+            }
+        }
+
+        return id + "번 사람이 존재하지 않습니다.";
     }
 }
