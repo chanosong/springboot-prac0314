@@ -2,8 +2,7 @@ package com.practice.basic1;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.practice.basic1.Entity.Member;
-import com.practice.basic1.Repository.MemberRepository;
+import com.practice.basic1.boundedContext.Member.MemberRepository;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -120,30 +119,5 @@ public class HomeController {
         res.addCookie(new Cookie("count", ++cntInCookie + ""));
 
         return cntInCookie;
-    }
-
-    @GetMapping("/member/login")
-    @ResponseBody
-    public String login(String username, String password) throws JsonProcessingException {
-        Map<String, Object> map = new LinkedHashMap<>();
-
-        switch(memberRepository.validate(username, password)) {
-            case 0:
-                map.put("resultCode", "S-1");
-                map.put("msg", username + "님 환영합니다.");
-                break;
-            case 1:
-                map.put("resultCode", "F-2");
-                map.put("msg", username + "(은)는 존재하지 않는 회원입니다.");
-                break;
-            case 2:
-                map.put("resultCode", "F-1");
-                map.put("msg","비밀번호가 일치하지 않습니다.");
-
-        }
-
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        return objectMapper.writeValueAsString(map);
     }
 }

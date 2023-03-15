@@ -1,12 +1,10 @@
-package com.practice.basic1.Entity;
+package com.practice.basic1.boundedContext.Member;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 @AllArgsConstructor
-@Getter
-@Setter
+@Data
 public class Member {
     private String username;
     private String password;

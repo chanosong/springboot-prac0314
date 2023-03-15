@@ -1,10 +1,11 @@
-package com.practice.basic1.Repository;
+package com.practice.basic1.boundedContext.Member;
 
-import com.practice.basic1.Entity.Member;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class MemberRepository {
     static private List<Member> memberList = new ArrayList<>();
 
@@ -25,12 +26,9 @@ public class MemberRepository {
         return memberList;
     }
 
-    public void addMember(String username, String password) {
-        memberList.add(new Member(username, password));
-    }
-
     // 0: 성공 1: 아이디 존재 x 2: 비밀번호 틀림
     public int validate(String username, String password) {
+
         for (Member m : memberList) {
             if (m.getUsername().equals(username)) {
                 if (m.getPassword().equals(password)) return 0;
@@ -38,5 +36,9 @@ public class MemberRepository {
             }
         }
         return 1;
+    }
+
+    public void addMember(String username, String password) {
+        memberList.add(new Member(username, password));
     }
 }
