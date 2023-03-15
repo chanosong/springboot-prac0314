@@ -118,5 +118,27 @@ public class HomeController {
         return cntInCookie;
     }
 
+    @GetMapping("/member/login")
+    @ResponseBody
+    public String login(String username, String password) throws JsonProcessingException {
+        Map<String, Object> map = new LinkedHashMap<>();
 
+        if (!username.equals("user1")) {
+            map.put("resultCode", "F-2");
+            map.put("msg", username + "(은)는 존재하지 않는 회원입니다.");
+        }
+        else {
+            if (!password.equals("1234")) {
+                map.put("resultCode", "F-1");
+                map.put("msg","비밀번호가 일치하지 않습니다.");
+            }
+            else {
+                map.put("resultCode", "S-1");
+                map.put("msg", username + "님 환영합니다.");
+            }
+        }
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        return objectMapper.writeValueAsString(map);
+    }
 }
