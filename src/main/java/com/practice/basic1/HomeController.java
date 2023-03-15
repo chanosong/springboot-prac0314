@@ -2,6 +2,8 @@ package com.practice.basic1;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.practice.basic1.Entity.Member;
+import com.practice.basic1.Repository.MemberRepository;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -19,6 +21,8 @@ public class HomeController {
     int cnt = 0;
     int lastIdx = 0;
     List<Map<String, Object>> peopleList = new ArrayList<>();
+
+    MemberRepository memberRepository = new MemberRepository();
 
     @GetMapping("/home/main")
     @ResponseBody
@@ -123,20 +127,21 @@ public class HomeController {
     public String login(String username, String password) throws JsonProcessingException {
         Map<String, Object> map = new LinkedHashMap<>();
 
-        if (!username.equals("user1")) {
-            map.put("resultCode", "F-2");
-            map.put("msg", username + "(은)는 존재하지 않는 회원입니다.");
-        }
-        else {
-            if (!password.equals("1234")) {
-                map.put("resultCode", "F-1");
-                map.put("msg","비밀번호가 일치하지 않습니다.");
-            }
-            else {
+        switch(memberRepository.validate(username, password)) {
+            case 0:
                 map.put("resultCode", "S-1");
                 map.put("msg", username + "님 환영합니다.");
-            }
+                break;
+            case 1:
+                map.put("resultCode", "F-2");
+                map.put("msg", username + "(은)는 존재하지 않는 회원입니다.");
+                break;
+            case 2:
+                map.put("resultCode", "F-1");
+                map.put("msg","비밀번호가 일치하지 않습니다.");
+
         }
+
         ObjectMapper objectMapper = new ObjectMapper();
 
         return objectMapper.writeValueAsString(map);
