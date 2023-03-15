@@ -2,6 +2,7 @@ package com.practice.basic1.boundedContext.Member;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.practice.basic1.boundedContext.Rq;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -57,6 +58,23 @@ public class MemberController {
 
             map = memberService.checkUsername(username, password);
         }
+
+        return objectMapper.writeValueAsString(map);
+    }
+
+    @GetMapping("/member/logout")
+    @ResponseBody
+    public String logout(HttpServletRequest req, HttpServletResponse res) throws JsonProcessingException {
+        Map<String, Object> map = new HashMap<>();
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        Rq rq= new Rq(req, res);
+
+        rq.removeCookie("username");
+        rq.removeCookie("password");
+
+        map.put("resultCode", "S-1");
+        map.put("msg", "로그아웃 되었습니다.");
 
         return objectMapper.writeValueAsString(map);
     }
