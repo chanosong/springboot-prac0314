@@ -2,15 +2,16 @@ package com.practice.basic1;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.IOException;
+import java.util.*;
 
 @Controller
 public class HomeController {
@@ -101,4 +102,21 @@ public class HomeController {
 
         return id + "번 사람이 존재하지 않습니다.";
     }
+
+    @GetMapping("/home/cookie/increase")
+    @ResponseBody
+    public int increaseCookie(HttpServletRequest req, HttpServletResponse res) throws IOException {
+        int cntInCookie = 0;
+
+        if (req.getCookies() != null) {
+            cntInCookie = Arrays.stream(req.getCookies()).filter(e -> e.getName().equals("count"))
+                    .map(Cookie::getValue).mapToInt(Integer::parseInt).findFirst().orElse(0);
+        }
+
+        res.addCookie(new Cookie("count", ++cntInCookie + ""));
+
+        return cntInCookie;
+    }
+
+
 }
