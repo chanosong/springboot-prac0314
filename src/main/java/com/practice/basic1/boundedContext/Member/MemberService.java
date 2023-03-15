@@ -31,4 +31,15 @@ public class MemberService {
 
         return map;
     }
+
+    public Map<String, Object> checkUsername(String username, String password) {
+        Map<String, Object> map = new LinkedHashMap<>();
+
+        if (memberRepository.validate(username, password) == 0){
+            map.put("resultCode", "S-1");
+            map.put("msg", "당신의 username(은)는 " + username + "입니다.");
+        }
+
+        return map;
+    }
 }
