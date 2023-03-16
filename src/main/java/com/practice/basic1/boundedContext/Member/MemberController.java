@@ -22,6 +22,7 @@ import java.util.Map;
 public class MemberController {
     private final MemberService memberService;
 
+    private final Rq rq;
     @GetMapping("/member/login")
     @ResponseBody
     public String login(HttpServletRequest req, HttpServletResponse res) throws JsonProcessingException {
@@ -64,11 +65,11 @@ public class MemberController {
 
     @GetMapping("/member/logout")
     @ResponseBody
-    public String logout(HttpServletRequest req, HttpServletResponse res) throws JsonProcessingException {
+    public String logout() throws JsonProcessingException {
         Map<String, Object> map = new HashMap<>();
         ObjectMapper objectMapper = new ObjectMapper();
 
-        Rq rq= new Rq(req, res);
+        //Rq rq= new Rq(req, res);
 
         rq.removeCookie("username");
         rq.removeCookie("password");
