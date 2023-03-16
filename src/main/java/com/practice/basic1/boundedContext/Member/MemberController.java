@@ -24,8 +24,13 @@ public class MemberController {
 
     private final Rq rq;
     @GetMapping("/member/login")
+    public String login() {
+        return "usr/member/login";
+    }
+
+    @GetMapping("/member/doLogin")
     @ResponseBody
-    public String login(HttpServletRequest req, HttpServletResponse res) throws JsonProcessingException {
+    public String doLogin(HttpServletRequest req, HttpServletResponse res) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
 
         String username = req.getParameter("username");
@@ -78,5 +83,11 @@ public class MemberController {
         map.put("msg", "로그아웃 되었습니다.");
 
         return objectMapper.writeValueAsString(map);
+    }
+
+    @GetMapping("/member/session")
+    @ResponseBody
+    public String showSession() {
+        return rq.getSessionDebugContents();
     }
 }
