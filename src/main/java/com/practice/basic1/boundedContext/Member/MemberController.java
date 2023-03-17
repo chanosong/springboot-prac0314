@@ -52,7 +52,7 @@ public class MemberController {
     public String showMe(HttpServletRequest req, HttpServletResponse res) throws JsonProcessingException {
         Map<String, Object> map = new HashMap<>();
         ObjectMapper objectMapper = new ObjectMapper();
-
+        rq.getLoginedMemberId();
         if (req.getCookies() == null) {
             map.put("resultCode" , "F-1");
             map.put("msg", "로그인 후 이용해주세요.");

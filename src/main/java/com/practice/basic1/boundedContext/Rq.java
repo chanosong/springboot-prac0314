@@ -68,4 +68,8 @@ public class Rq {
     public String getSessionDebugContents() {
         return "";
     }
+
+    public String getLoginedMemberId() {
+        return "";
+    }
 }
