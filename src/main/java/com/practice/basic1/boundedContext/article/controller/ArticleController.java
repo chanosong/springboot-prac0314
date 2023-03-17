@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -27,8 +26,7 @@ public class ArticleController {
         ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
         Article article = Article
-                .builder().createDate(LocalDateTime.now())
-                .modifyDate(LocalDateTime.now())
+                .builder()
                 .title(title)
                 .body(body)
                 .build();
