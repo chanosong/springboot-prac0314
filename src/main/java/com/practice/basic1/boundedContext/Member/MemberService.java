@@ -11,6 +11,7 @@ import java.util.Map;
 public class MemberService {
     private final MemberRepository memberRepository;
 
+    /*
     public Map<String, Object> tryLogin(String username, String password) {
         Map<String, Object> map = new LinkedHashMap<>();
 
@@ -31,7 +32,8 @@ public class MemberService {
 
         return map;
     }
-
+    */
+    /*
     public Map<String, Object> checkUsername(String username, String password) {
         Map<String, Object> map = new LinkedHashMap<>();
 
@@ -41,5 +43,16 @@ public class MemberService {
         }
 
         return map;
+    }
+       */
+    public Member join(String username, String password) {
+        Member member = Member.builder()
+                .username(username)
+                .password(password)
+                .build();
+
+        memberRepository.save(member);
+
+        return member;
     }
 }

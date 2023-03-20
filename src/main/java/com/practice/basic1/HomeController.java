@@ -21,8 +21,6 @@ public class HomeController {
     int lastIdx = 0;
     List<Map<String, Object>> peopleList = new ArrayList<>();
 
-    MemberRepository memberRepository = new MemberRepository();
-
     @GetMapping("/home/main")
     @ResponseBody
     public String showMain() {

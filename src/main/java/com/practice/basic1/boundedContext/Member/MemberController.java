@@ -29,6 +29,7 @@ public class MemberController {
         return "usr/member/login";
     }
 
+    /*
     @PostMapping("/member/doLogin")
     @ResponseBody
     public String doLogin(HttpServletRequest req, HttpServletResponse res) throws JsonProcessingException {
@@ -68,7 +69,7 @@ public class MemberController {
 
         return objectMapper.writeValueAsString(map);
     }
-
+    */
     @GetMapping("/member/logout")
     @ResponseBody
     public String logout() throws JsonProcessingException {
